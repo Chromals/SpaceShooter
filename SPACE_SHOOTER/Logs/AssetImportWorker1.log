@@ -166,3 +166,111 @@ AssetImportParameters requested are different than current active one (requested
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 280523.286050 seconds.
+  path: Assets/Sprites/UI/buttonGreen.png
+  artifactKey: Guid(ff6ba446429399041abf5cdb91e81bd6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Sprites/UI/buttonGreen.png using Guid(ff6ba446429399041abf5cdb91e81bd6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '873d15efa45a70f1840cd87194dd14f1') in 0.108069 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000017 seconds.
+  path: Assets/Sprites/UI/numeral7.png
+  artifactKey: Guid(981c6965bd0837d4187d2faaa63c254b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Sprites/UI/numeral7.png using Guid(981c6965bd0837d4187d2faaa63c254b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '71a0686625ce96503de22565f02b576d') in 0.012922 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Sprites/UI/playerLife1_green.png
+  artifactKey: Guid(7ed058367b5dc0948a2acf012c073fcb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Sprites/UI/playerLife1_green.png using Guid(7ed058367b5dc0948a2acf012c073fcb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5622da1359fd0989ff905167e5a6ce17') in 0.011844 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Sprites/UI/playerLife3_green.png
+  artifactKey: Guid(7418532d47a2c5d40ac47a41a1d8dd4e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Sprites/UI/playerLife3_green.png using Guid(7418532d47a2c5d40ac47a41a1d8dd4e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a7d2b6068456817e571519cbce81a6c7') in 0.010971 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Sprites/UI/playerLife2_orange.png
+  artifactKey: Guid(dc64b560b47b8f0418b508c9f3d9c971) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Sprites/UI/playerLife2_orange.png using Guid(dc64b560b47b8f0418b508c9f3d9c971) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3672fca063738ad4f6683266156f91ba') in 0.011731 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/Sprites/UI/playerLife3_orange.png
+  artifactKey: Guid(30a47f63438c09448bc60faf5f0697f1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Sprites/UI/playerLife3_orange.png using Guid(30a47f63438c09448bc60faf5f0697f1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c4ae3726899bf48c7edcc5651351b551') in 0.009713 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Sprites/UI/playerLife1_orange.png
+  artifactKey: Guid(00cd8d63fec8c334494682b8d43b07c7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Sprites/UI/playerLife1_orange.png using Guid(00cd8d63fec8c334494682b8d43b07c7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '353a44d01e7317cb3760eb41abee18c0') in 0.011651 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Sprites/UI/numeral0.png
+  artifactKey: Guid(2c35fb2df6806004f92d110c05a091ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Sprites/UI/numeral0.png using Guid(2c35fb2df6806004f92d110c05a091ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0be1764e27db59b1990d7a62b300ebcb') in 0.009975 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000016 seconds.
+  path: Assets/Sprites/UI/numeral8.png
+  artifactKey: Guid(776f7c722000f4244834a481b19dc8db) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Sprites/UI/numeral8.png using Guid(776f7c722000f4244834a481b19dc8db) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '835c314a2a6555723930566e3da1cf7d') in 0.010606 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000016 seconds.
+  path: Assets/Sprites/UI/buttonRed.png
+  artifactKey: Guid(a731a88ba20f98e43bd98a63a771830f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Sprites/UI/buttonRed.png using Guid(a731a88ba20f98e43bd98a63a771830f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7e1b1d54f5e09fc88f12c0056e041337') in 0.011950 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Sprites/UI/playerLife3_red.png
+  artifactKey: Guid(e4c39801c1ec16444a97b3727764a546) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Sprites/UI/playerLife3_red.png using Guid(e4c39801c1ec16444a97b3727764a546) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1f543dc7fd83190ad47d4123b7d90386') in 0.010033 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000017 seconds.
+  path: Assets/Sprites/UI/playerLife1_blue.png
+  artifactKey: Guid(1681e7c19469cb441bcb3240d66f5f23) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Sprites/UI/playerLife1_blue.png using Guid(1681e7c19469cb441bcb3240d66f5f23) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1e44ef3dab6b059a8b9194370b8955d1') in 0.010601 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Sprites/UI/numeral4.png
+  artifactKey: Guid(e82b85d33510ecf4cb71867b25161187) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Sprites/UI/numeral4.png using Guid(e82b85d33510ecf4cb71867b25161187) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd74f046cb767cb9ee3bcca93f105c12d') in 0.011484 seconds 
+Number of asset objects unloaded after import = 3
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0

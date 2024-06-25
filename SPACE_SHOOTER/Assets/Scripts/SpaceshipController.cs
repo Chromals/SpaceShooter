@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpaceshipController : MonoBehaviour
 {
@@ -36,6 +37,16 @@ public class SpaceshipController : MonoBehaviour
     [SerializeField]
     float bulletLifeTime;
 
+    [SerializeField]
+    float fireTimeout;
+
+    [Header("Animations")]
+    [SerializeField]
+    float dieTimeout;
+
+    [SerializeField]
+    float dieWaitTime;
+
     Vector2 _move = Vector2.zero;
 
     Vector2 _mouseScreenPoint;
@@ -43,6 +54,7 @@ public class SpaceshipController : MonoBehaviour
     Rigidbody2D _rb;
 
     float _rotationDir;
+    float _fireTimer;
 
     private void Awake()
     {
@@ -79,10 +91,18 @@ public class SpaceshipController : MonoBehaviour
     }
     private void HandleFire()
     {
+        _fireTimer -= Time.deltaTime;
+
         if (Input.GetButton("Fire1"))
         {
             GameObject bullet = Instantiate(bulletPrefab,firePoint.position, transform.rotation);
+
+            Vector2 dir = (firePoint.position - transform.position).normalized;
+            BulletController controller = bullet.GetComponent<BulletController>();
+            controller.SetDirection(dir);
+
             Destroy(bullet,bulletLifeTime);
+            _fireTimer = fireTimeout;
         }
     }
 
@@ -178,5 +198,30 @@ public class SpaceshipController : MonoBehaviour
         //otras formas
         ///transform.rotation = Quaternion.Euler(0.0F,0.0F,angle);
         ///transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
+
+    public void Die()
+    {
+        Collider2D coll = GetComponent<Collider2D>();
+        coll.enabled = false;
+        StartCoroutine(DieCoroutine()); 
+    }
+
+    private IEnumerator DieCoroutine()
+    {
+        SpriteRenderer renderer = GetComponentInChildren<SpriteRenderer>();
+        Color color = renderer.color;
+
+        while (color.a > 0.0F)
+        {
+            color.a -= 0.1F;
+
+            renderer.color = color;
+            yield return new WaitForSeconds(dieTimeout);
+        }
+
+        yield return new WaitForSeconds(dieWaitTime);
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

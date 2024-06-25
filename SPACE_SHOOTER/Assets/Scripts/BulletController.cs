@@ -9,6 +9,8 @@ public class BulletController : MonoBehaviour
 
     Rigidbody2D _rb;
 
+    Vector2 _direction;
+
 
     private void Awake()
     {
@@ -18,7 +20,7 @@ public class BulletController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _rb.velocity = Vector2.up * speed * Time.deltaTime;
+        _rb.velocity = _direction * speed * Time.deltaTime;
     }
 
     // Update is called once per frame
@@ -26,4 +28,10 @@ public class BulletController : MonoBehaviour
     {
         
     }
+
+    public void SetDirection(Vector2 direction)
+    {
+        _direction = direction;
+    }
+
 }

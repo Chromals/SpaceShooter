@@ -47,6 +47,9 @@ public class SpaceshipController : MonoBehaviour
     [SerializeField]
     float dieWaitTime;
 
+    [SerializeField]
+    string fireSoundSFX;
+
     Vector2 _move = Vector2.zero;
 
     Vector2 _mouseScreenPoint;
@@ -95,6 +98,11 @@ public class SpaceshipController : MonoBehaviour
 
         if (Input.GetButton("Fire1"))
         {
+            if (_fireTimer > 0.0F)
+            {
+                return;
+            }
+
             GameObject bullet = Instantiate(bulletPrefab,firePoint.position, transform.rotation);
 
             Vector2 dir = (firePoint.position - transform.position).normalized;
@@ -103,6 +111,8 @@ public class SpaceshipController : MonoBehaviour
 
             Destroy(bullet,bulletLifeTime);
             _fireTimer = fireTimeout;
+
+            SoundManager.Instance.PlaySFX(fireSoundSFX);
         }
     }
 
@@ -204,6 +214,10 @@ public class SpaceshipController : MonoBehaviour
     {
         Collider2D coll = GetComponent<Collider2D>();
         coll.enabled = false;
+
+        SpaceshipController spaceship = GetComponent<SpaceshipController>();
+        spaceship.enabled = false;
+
         StartCoroutine(DieCoroutine()); 
     }
 
@@ -222,6 +236,9 @@ public class SpaceshipController : MonoBehaviour
 
         yield return new WaitForSeconds(dieWaitTime);
 
+        //moverlo a levelmanager como metodo Reload() - 10pts
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        //go to gameover when haslives is false -> 10pts
     }
 }

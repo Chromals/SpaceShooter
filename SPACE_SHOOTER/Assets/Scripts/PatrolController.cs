@@ -31,6 +31,9 @@ public class PatrolController : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (_nextPoint == null)
+            Next();
+
         Vector2 currentPos = _rb.position;
         Vector2 targetPos = _nextPoint.position;
         Vector2 movePos = Vector2.MoveTowards(currentPos, targetPos, speed * Time.deltaTime);
@@ -42,14 +45,20 @@ public class PatrolController : MonoBehaviour
             {
 
                 Next();
-                _aliveTime = lifeTime;
-
                 _maxPathPoints--;
             }
             else
                 _aliveTime -= Time.deltaTime;
         }
 
+    }
+
+    private void OnEnable()
+    {
+        _rb = GetComponent<Rigidbody2D>();
+        _rb.position = _pathPoints[0].position;
+        _maxPathPoints = Random.Range(maxPathPoints / 2, maxPathPoints);
+        Next();
     }
 
     private void Start()
@@ -77,11 +86,12 @@ public class PatrolController : MonoBehaviour
             }
         }
 
-        
+        _aliveTime = lifeTime;
     }
 
     public void setPathPoints(Transform[] pathPoints)
     {
         _pathPoints = pathPoints;
+        enabled = true;
     }
 }

@@ -376,10 +376,14 @@
 "Assets/Scripts/AttackController.cs"
 "Assets/Scripts/BulletController.cs"
 "Assets/Scripts/CentinelController.cs"
+"Assets/Scripts/FollowAndRetreatAI.cs"
 "Assets/Scripts/Path.cs"
 "Assets/Scripts/PatrolController.cs"
 "Assets/Scripts/PatrolManager.cs"
+"Assets/Scripts/Sound.cs"
+"Assets/Scripts/SoundManager.cs"
 "Assets/Scripts/SpaceshipController.cs"
+"Assets/Scripts/UIController.cs"
 -langversion:9.0
 /deterministic
 /optimize+

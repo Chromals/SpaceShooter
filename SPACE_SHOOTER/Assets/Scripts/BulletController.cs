@@ -7,6 +7,7 @@ public class BulletController : MonoBehaviour
     [SerializeField]
     float speed;
 
+
     Rigidbody2D _rb;
 
     Vector2 _direction;
@@ -27,6 +28,23 @@ public class BulletController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            CentinelController controller = other.gameObject.GetComponent<CentinelController>();
+
+
+
+            //implement getPoints on centinelController -> 10pts  check
+            float points = controller.GetPoints();
+
+            UIController.Instance.IncreaseScore(points);
+
+            Destroy(other.gameObject);
+        }
     }
 
     public void SetDirection(Vector2 direction)

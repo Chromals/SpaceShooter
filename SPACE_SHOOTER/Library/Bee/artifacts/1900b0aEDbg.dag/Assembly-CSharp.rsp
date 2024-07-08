@@ -374,10 +374,12 @@
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEngine.UI.ref.dll"
 "Assets/Scripts/AttackController.cs"
+"Assets/Scripts/BossBulletController.cs"
 "Assets/Scripts/BossController.cs"
 "Assets/Scripts/BulletController.cs"
 "Assets/Scripts/CentinelController.cs"
 "Assets/Scripts/FollowAndRetreatAI.cs"
+"Assets/Scripts/LevelManager.cs"
 "Assets/Scripts/Path.cs"
 "Assets/Scripts/PatrolController.cs"
 "Assets/Scripts/PatrolManager.cs"
@@ -385,7 +387,6 @@
 "Assets/Scripts/SoundManager.cs"
 "Assets/Scripts/SpaceshipController.cs"
 "Assets/Scripts/UIController.cs"
-"Assets/Scripts/UIManager.cs"
 -langversion:9.0
 /deterministic
 /optimize-

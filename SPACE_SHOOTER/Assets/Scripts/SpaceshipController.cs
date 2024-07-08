@@ -1,7 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class SpaceshipController : MonoBehaviour
@@ -16,18 +16,17 @@ public class SpaceshipController : MonoBehaviour
     [SerializeField]
     bool handleClamp;
 
-
     [Header("Rotation")]
     [SerializeField]
     float rotationSpeed;
 
     [SerializeField]
-    bool mouseRotation;
+    float rotationTime;
 
     [SerializeField]
-    float rotationTime = 0.05F;
+    bool mouseRotation;
 
-    [Header("Firing")]
+    [Header("Fire")]
     [SerializeField]
     Transform firePoint;
 
@@ -51,18 +50,16 @@ public class SpaceshipController : MonoBehaviour
     string fireSoundSFX;
 
     Vector2 _move = Vector2.zero;
+    Vector2 _mousePoint;
 
-    Vector2 _mouseScreenPoint;
+    Rigidbody2D _rigidbody;
 
-    Rigidbody2D _rb;
-
-    float _rotationDir;
+    float _rotationDirection;
     float _fireTimer;
 
     private void Awake()
     {
-        _rb = GetComponent<Rigidbody2D>();
-
+        _rigidbody = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -70,46 +67,42 @@ public class SpaceshipController : MonoBehaviour
         HandleInputMove();
         HandleInputRotation();
         HandleFire();
-       
-
-
     }
-
-
 
     private void FixedUpdate()
     {
         HandleRotation();
+
         if (_move.sqrMagnitude == 0.0F)
+        {
             return;
+        }
 
         HandleMove();
-
         HandleClamp();
         HandleTeleport();
-
-
-        //forma de movimiento -> velocidad
-        ///_rb.velocity = _move* speed *Time.fixedDeltaTime
     }
+
     private void HandleFire()
     {
         _fireTimer -= Time.deltaTime;
 
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButtonUp("Fire1"))
         {
             if (_fireTimer > 0.0F)
             {
                 return;
             }
 
-            GameObject bullet = Instantiate(bulletPrefab,firePoint.position, transform.rotation);
+            GameObject bullet =
+                Instantiate(bulletPrefab, firePoint.position, transform.rotation);
 
-            Vector2 dir = (firePoint.position - transform.position).normalized;
+            Vector2 direction = (firePoint.position - transform.position).normalized;
+
             BulletController controller = bullet.GetComponent<BulletController>();
-            controller.SetDirection(dir);
+            controller.SetDirection(direction);
 
-            Destroy(bullet,bulletLifeTime);
+            Destroy(bullet, bulletLifeTime);
             _fireTimer = fireTimeout;
 
             SoundManager.Instance.PlaySFX(fireSoundSFX);
@@ -119,13 +112,65 @@ public class SpaceshipController : MonoBehaviour
     private void HandleInputRotation()
     {
         if (Input.GetKey(KeyCode.Q))
-            _rotationDir = +1.0F;
+        {
+            _rotationDirection = 1.0F;
+        }
         else if (Input.GetKey(KeyCode.E))
-            _rotationDir = -1.0F;
+        {
+            _rotationDirection = -1.0F;
+        }
         else
-            _rotationDir = 0.0F;
+        {
+            _rotationDirection = 0.0F;
+        }
 
-        _mouseScreenPoint = Input.mousePosition;
+        _mousePoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    }
+
+    private void HandleTeleport()
+    {
+        if (handleClamp)
+        {
+            return;
+        }
+
+        Vector2 currentPosition = _rigidbody.position;
+        if (currentPosition.x > 0.0F && currentPosition.x >= edges.x)
+        {
+            _rigidbody.position = new Vector2(-edges.x + 0.01F, currentPosition.y);
+        }
+        else if (currentPosition.x < 0.0F && currentPosition.x <= -edges.x)
+        {
+            _rigidbody.position = new Vector2(edges.x - 0.01F, currentPosition.y);
+        }
+
+        if (currentPosition.y > 0.0F && currentPosition.y >= edges.y)
+        {
+            _rigidbody.position = new Vector2(currentPosition.x, -edges.y + 0.01F);
+        }
+        else if (currentPosition.y < 0.0F && currentPosition.y <= -edges.y)
+        {
+            _rigidbody.position = new Vector2(currentPosition.x, edges.y - 0.01F);
+        }
+    }
+
+    private void HandleClamp()
+    {
+        if (!handleClamp)
+        {
+            return;
+        }
+
+        float x = Mathf.Clamp(_rigidbody.position.x, -edges.x, edges.x);
+        float y = Mathf.Clamp(_rigidbody.position.y, -edges.y, edges.y);
+        _rigidbody.position = new Vector2(x, y);
+    }
+
+    private void HandleMove()
+    {
+        Vector2 direction = _move.normalized;
+        Vector2 currentPosition = _rigidbody.position;
+        _rigidbody.MovePosition(currentPosition + direction * speed * Time.fixedDeltaTime);
     }
 
     private void HandleInputMove()
@@ -136,89 +181,36 @@ public class SpaceshipController : MonoBehaviour
         _move = new Vector2(x, y);
     }
 
-    private void HandleTeleport()
-    {
-        if (handleClamp)
-            return;
-
-        Vector2 currentPos = _rb.position;
-        if (currentPos.x > 0.0F && currentPos.x >= edges.x)
-        {
-            _rb.position = new Vector2(-edges.x + 0.01F, currentPos.y);
-        }
-        else if (currentPos.x < 0.0F && currentPos.x <= -edges.x)
-        {
-            _rb.position = new Vector2(edges.x - 0.01F, currentPos.y);
-        }
-        else if (currentPos.y > 0.0F && currentPos.y >= edges.y)
-        {
-            _rb.position = new Vector2(currentPos.x, -edges.y + 0.01F);
-        }
-        else if (currentPos.y < 0.0F && currentPos.y <= -edges.y)
-        {
-            _rb.position = new Vector2(currentPos.x, edges.y - 0.01F);
-        }
-    }
-
-    private void HandleClamp()
-    {
-        //esto es para que con la primera forma de movimiento (velocidad) no se saliera de las barreras de la pantalla
-        if (!handleClamp)
-            return;
-        float x = Mathf.Clamp(_rb.position.x, -edges.x, edges.x);
-        float y = Mathf.Clamp(_rb.position.y, -edges.y, edges.y);
-        _rb.position = new Vector2(x, y);
-    }
-
-    private void HandleMove()
-    {
-        //forma de movimiento -> moverlo en una direccion
-        Vector2 direction = _move.normalized;
-        Vector2 currentPos = _rb.position;
-        _rb.MovePosition(currentPos + direction * speed * Time.fixedDeltaTime);
-    }
-
     private void HandleRotation()
     {
         if (mouseRotation)
         {
-            Vector2 currentSP = Camera.main.WorldToScreenPoint(_rb.position);
-            Vector2 direction = (_mouseScreenPoint - currentSP).normalized;
-
-
-            //                  el atan2 esta en radianes       aqui lo hacemos en grados                 
+            Vector2 currentPoint = _rigidbody.position;
+            Vector2 direction = (_mousePoint - currentPoint).normalized;
             float angleZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            _rb.MoveRotation(angleZ);
+            _rigidbody.MoveRotation(angleZ);
             return;
         }
 
-        float currentRotation = _rb.rotation;
-        if (_rotationDir != 0.0F)
+        float currentRotation = _rigidbody.rotation;
+        if (_rotationDirection != 0.0F)
         {
-            float targetRotation = currentRotation + _rotationDir * rotationSpeed * Time.fixedDeltaTime;
+            float targetRotation = currentRotation + _rotationDirection * rotationSpeed * Time.fixedDeltaTime;
             float rotation = Mathf.Lerp(currentRotation, targetRotation, rotationTime);
-            _rb.rotation = rotation;
+            _rigidbody.rotation = rotation;
         }
-
-
-
-        
-
-
-        //otras formas
-        ///transform.rotation = Quaternion.Euler(0.0F,0.0F,angle);
-        ///transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
+
 
     public void Die()
     {
-        Collider2D coll = GetComponent<Collider2D>();
-        coll.enabled = false;
+        Collider2D collider = GetComponent<Collider2D>();
+        collider.enabled = false;
 
-        SpaceshipController spaceship = GetComponent<SpaceshipController>();
-        spaceship.enabled = false;
+        SpaceshipController controller = GetComponent<SpaceshipController>();
+        controller.enabled = false;
 
-        StartCoroutine(DieCoroutine()); 
+        StartCoroutine(DieCoroutine());
     }
 
     private IEnumerator DieCoroutine()
@@ -229,16 +221,21 @@ public class SpaceshipController : MonoBehaviour
         while (color.a > 0.0F)
         {
             color.a -= 0.1F;
-
             renderer.color = color;
             yield return new WaitForSeconds(dieTimeout);
         }
 
         yield return new WaitForSeconds(dieWaitTime);
 
-        //moverlo a levelmanager como metodo Reload() - 10pts
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //moverlo a levelmanager como metodo Reload() - 10pts - check
+        LevelManager levelManager = FindObjectOfType<LevelManager>();
+        levelManager.Reload();
 
-        //go to gameover when haslives is false -> 10pts
+
+        //go to gameover when haslives is false -> 10pts - check
+        if (!UIController.Instance.HasLives())
+        {
+            levelManager.LastLevel();
+        }
     }
 }

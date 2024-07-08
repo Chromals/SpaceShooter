@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,16 +14,24 @@ public class UIController : MonoBehaviour
     Transform livesContainer;
 
     bool hasLives = true;
+    int lives = 0;
 
     private static UIController _instance;
-
 
 
     private void Awake()
     {
         //implements singleton (instance) to invoke  IncreaseScore -> 10pts -check
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         _instance = this;
+
+
     }
+
 
     public static UIController Instance
     {
@@ -30,31 +39,29 @@ public class UIController : MonoBehaviour
     }
 
     //https://www.dafont.com/
-    //find a font and apply it to the textmeshpro controls -> 10pts
-
+    //find a font and apply it to the textmeshpro controls -> 10pts - check
 
 
     public void IncreaseScore(float points)
     {
-        float score =float.Parse( scoreTxt.text);
+        float score = float.Parse(scoreTxt.text);
 
         score += points;
         scoreTxt.text = score.ToString();
     }
 
-    
 
     public void DecreaseLives()
     {
-        int  maxLiveNumer=0;
+        int maxLiveNumer = 0;
         Image[] liveImgs = livesContainer.GetComponentsInChildren<Image>();
         Image maxLiveImg = null;
 
         foreach (Image image in liveImgs)
         {
-            if (image.name.StartsWith("Live-") && image.enabled)
+            if (image.name.StartsWith("Life_") && image.enabled)
             {
-                int liveNumber = int.Parse(image.name.Remove(0, 5));
+                int liveNumber = int.Parse(image.name.Remove(0, 5)) - 1;
                 if (maxLiveNumer == 0 || liveNumber > maxLiveNumer)
                 {
                     maxLiveNumer = liveNumber;
@@ -75,6 +82,22 @@ public class UIController : MonoBehaviour
     {
         return hasLives;
     }
-    
-}
 
+    public int GetLives()
+    {
+        int enabledCount = 0;
+
+        Image[] liveImgs = livesContainer.GetComponentsInChildren<Image>();
+        foreach (Image image in liveImgs)
+        {
+            if (image.enabled)
+            {
+                enabledCount++;
+            }
+        }
+
+        return enabledCount;
+    }
+
+
+}
